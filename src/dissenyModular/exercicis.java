@@ -3,13 +3,13 @@ package dissenyModular;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.*;
+import java.util.Scanner;
 
 public class exercicis {
 
     public static void main(String[] args) {
-
-
+        //exercicis.ordenarPerZeros();
+        exercicis.MesVocals("Hola que aSe aMigo greisuy");
     }
 
 
@@ -392,16 +392,113 @@ public class exercicis {
     }
 
 
-    /*13. Completeu la classe Forecast.java per a que retorni la temperatura, humitat, pressió,
+    /*13. Completeu la classe forecast.java per a que retorni la temperatura, humitat, pressió,
     vent (velocitat i direcció) o estat general del temps de la ciutat que se li passi per
     paràmetre al executar el programa. La informació que desitgem recuperar també es passarà
     per paràmetre (fixeu vosaltres la sintaxi concreta).*/
 
-    public void funcioForecast (){
+    /*public void funcioForecast (){
 
         forecast ciutatA = new forecast();
         ciutatA.setParametres("Barcelona","25.4","87","1023","23","NO","Nublado");
         ciutatA.pintaInfo();
+    }*/
+
+
+    /* Feu un programa anomenat OrdenarPerZeros que, donat un array de números enters
+    inicialitzat amb valors concrets, primer el mostri per pantalla i després el mostri
+    ordenat de manera ascendent d'acord al nombre de 0 de cada valor.
+    Declareu l'array com a variable dins el mètode principal.
+
+    A mode d'exemple, el comportament del programa podria ser el següent:
+
+            [ 100 2014 12 30 302 40020 7009 500000 ]
+
+            [ 500000 40020 7009 100 2014 30 302 12 ]
+    */
+
+    public static void ordenarPerZeros(){
+
+        int [] array ={ 23, 34, 53, 1 , 532 ,-35, 9, -23};
+
+        exercicis.pintaArray(array);
+        exercicis.ascendent(array);
+        exercicis.pintaArray(array);
+
     }
+
+    public static int [] ascendent (int [] a){
+        int [] aux = new int[a.length+1];
+
+        int temp;
+        int comptador=0;
+
+        for (int j = 0; j < a.length-comptador ; j++) {
+          for (int i = 0; i < a.length-1; i++) {
+                if(a[i]<a[i+1]){
+                    temp = a[i];
+                    a[i]= a[i+1];
+                    a[i+1] = temp;
+                }
+            }
+            comptador++;
+        }
+
+        return a;
+    }
+
+    public static void pintaArray (int [] array){
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + ",");
+        }
+        System.out.println("]");
+    }
+
+
+    /* 2) Feu un programa anomenat MesVocals que llegeixi una frase i, tot seguit, mostri per
+    pantalla quina és la paraula amb més vocals (sense importar majúscules i minúscules).
+    A mode d'exemple, el comportament del programa podria ser el següent:
+
+    Escriu una frase:
+
+    Hi havia una vegada una noia anomenada Caputxeta Vermella
+
+    La frase amb mes vocals és "anomenada".
+
+    */
+
+    public static void MesVocals(String frase){
+        String[] array = frase.split(" ");
+
+        int maxim= 0;
+        int indexMax=0;
+
+        for (int i=0 ; i< array.length; i++) {
+            array[i] = array[i].toLowerCase();
+            int numVocals = numVocals(array[i]);
+            if(numVocals>maxim){
+                maxim = numVocals;
+                indexMax = i;
+            }
+        }
+
+        System.out.println("Paraula: "+ array[indexMax]);
+        System.out.println("Vocals: "+ maxim);
+    }
+
+    public static int numVocals(String paraula){
+        int n = 0;
+        char [] array = paraula.toCharArray();
+
+        for (char a: array) {
+            if(( a == 'a')|(a == 'e')|(a == 'i')|(a == 'o')|(a == 'u')){
+                n++;
+            }
+        }
+
+        return n;
+    }
+
 
 }
