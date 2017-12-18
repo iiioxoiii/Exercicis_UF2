@@ -24,7 +24,7 @@ public class forecast {
 
     public static String [] netejar (String dades){
         dades = dades.replace(" ","ç");
-        dades= dades.replace("{","");
+        dades = dades.replace("{","");
         dades = dades.replace(":","");
         dades = dades.replace("[","");
         dades = dades.replace("}","");
