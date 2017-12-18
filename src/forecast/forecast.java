@@ -9,9 +9,40 @@ public class forecast {
 
     public static void main(String[] args) {
         //passem la ciutat en l'argument del main
-        String current = forecast.getHTML("http://api.openweathermap.org/data/2.5/weather?q="+ "Barcelona" +"&units=metric&appid=644da4f2a1231c6611d2e2d8abb1fc90");
-        System.out.println(current);
+        String current = forecast.getHTML("http://api.openweathermap.org/data/2.5/weather?q="+ args[0] +"&units=metric&appid=644da4f2a1231c6611d2e2d8abb1fc90");
+        //System.out.println(current);
+        current = netejar(current);
+        String [] array = current.split("\\s+");
+
+        //netejem les parales amb la ç trencada
+        for (int i = 0; i <array.length ; i++) {
+            array[i]= array[i].replace("ç"," ");
+        }
+
+        System.out.println("Dades de la ciutat de "+ args[0]);
+        System.out.println("Temperatura: "+ array[19]+"C");
+        System.out.println("Temps: "+ array[12]);
+        System.out.println("Humitat: "+ array[23]+"%");
+        System.out.println("Pressió: "+ array[21]+"bars");
+        System.out.println("Vent (velocitat): "+ array[32]);
+        System.out.print("Vent (direccio): " + array[34]);
     }
+
+
+    public static String netejar (String dades){
+        dades = dades.replace(" ","ç");
+        dades= dades.replace("{","");
+        dades = dades.replace(":","");
+        dades = dades.replace("[","");
+        dades = dades.replace("}","");
+        dades = dades.replace(",","");
+        dades = dades.replace("]","");
+        dades = dades.replace("\"\"","\"");
+        dades = dades.replace("\""," ");
+
+        return dades;
+    }
+
 
 
     /**
