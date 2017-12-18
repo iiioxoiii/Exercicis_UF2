@@ -120,7 +120,6 @@ public class dissenyModular {
 
     public static void historicIngressos(){
 
-        //format de sortida de la Data
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy");
 
         for (HashMap.Entry<Date, Double> ingres: ingressos.entrySet()) {
@@ -131,7 +130,6 @@ public class dissenyModular {
 
     public static void historicDespeses(){
 
-        //format de sortida de la Data
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd hh:mm:ss yyyy");
 
         for (HashMap.Entry<Date, Double> despesa: despeses.entrySet()) {
