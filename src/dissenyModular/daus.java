@@ -7,11 +7,8 @@ de la suma és la puntuació obtinguda en el llançament.
 Regles del joc.
 
 - La puntuació obtinguda en el primer llançament s’anomena punt, que es memoritza.
-
 - Si el punt és 7 o 11 es guanya i s'acaba la partida.
-
 - Si el el punt és 2, 3 o 12 es perd i s'acaba la partida.
-
 
 Pels altres valors del punt es seguix llançant els daus fins que es treu de nou el punt
 obtingut al primer llançament, llavors es guanya i s'acaba la partida, o es treu un 7,
@@ -53,11 +50,56 @@ llavors es perd i s'acaba la partida.
 */
 
 
+import java.util.Scanner;
+
 public class daus {
 
     public static void main(String[] args) {
 
+        System.out.println("***********************");
+        System.out.println("*******PARTIDA*********");
+        System.out.println("***********************");
+
+        System.out.println("Tira daus!");
+        System.out.print("Press any key to continue...");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+
+
+        int primeraTirada = tirada();
+
+        System.out.println(primeraTirada);
+
+        boolean end = false;
+
+
+        while(!end){
+            if (primeraTirada == 7 || primeraTirada == 11) {
+                System.out.println("Guanya");
+                System.out.println("Final");
+                end = true;
+            } else if (primeraTirada == 2 || primeraTirada == 3 || primeraTirada == 12) {
+                System.out.println("Pert");
+                System.out.println("Final");
+                end =true;
+            }else{
+
+            }
+
+            MKeyListener orella = new MKeyListener();
+        }
+
     }
 
+    public static int tirada(){
+        int numero = tiraDau()+tiraDau();
+        return numero;
+    }
+
+    public static int tiraDau(){
+        return (int) (Math.random() * (6 - 1)) + 1;
+    }
 
 }
+
+
