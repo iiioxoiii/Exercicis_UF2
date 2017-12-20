@@ -62,9 +62,49 @@ llavors es perd i s'acaba la partida.
 public class daus {
 
     public static void main(String[] args) {
-        banner();
-        controlador();
+        joc();
     }
+
+
+
+    public static void joc(){
+        boolean theEnd= false;
+        banner();
+        while (!theEnd){
+            menu();
+            int opcio = preguntaOpcio();
+            if(opcio==3){
+                sortir();
+                theEnd = true;
+            }else if(opcio == 1 || opcio ==2){
+                executa(opcio);
+            }else{
+                System.out.println("Opció incorrecta");
+            }
+        }
+    }
+
+
+    public static int preguntaOpcio() {
+        System.out.println("escriu opció: ");
+        Scanner sc = new Scanner(System.in);
+        int op = sc.nextInt();
+
+        return op;
+    }
+
+
+    public static void executa (int op){
+        switch (op) {
+            case 1:
+                partida();
+                break;
+            case 2:
+                ajuda();
+                break;
+        }
+    }
+
 
 
     public static void banner(){
@@ -78,37 +118,6 @@ public class daus {
         System.out.println("1) jugar");
         System.out.println("2) ajuda");
         System.out.println("3) sortir");
-    }
-
-
-
-    public static void controlador() {
-
-        boolean theEnd = false;
-        while (!theEnd) {
-
-            menu();
-
-            System.out.println("escriu opció: ");
-            Scanner sc = new Scanner(System.in);
-            int op = sc.nextInt();
-
-            switch (op) {
-                case 1:
-                    partida();
-                    break;
-                case 2:
-                    ajuda();
-                    break;
-                case 3:
-                    sortir();
-                    theEnd = true;
-                    break;
-                default:
-                    System.out.println("Opció incorrecta:");
-                    controlador();
-            }
-        }
     }
 
     public static void ajuda(){
