@@ -66,7 +66,6 @@ public class daus {
     }
 
 
-
     public static void joc(){
         boolean theEnd= false;
         banner();
@@ -84,7 +83,6 @@ public class daus {
         }
     }
 
-
     public static int preguntaOpcio() {
         System.out.println("escriu opció: ");
         Scanner sc = new Scanner(System.in);
@@ -92,7 +90,6 @@ public class daus {
 
         return op;
     }
-
 
     public static void executa (int op){
         switch (op) {
@@ -104,8 +101,6 @@ public class daus {
                 break;
         }
     }
-
-
 
     public static void banner(){
         System.out.println("***********************");
