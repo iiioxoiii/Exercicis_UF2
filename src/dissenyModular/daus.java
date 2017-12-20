@@ -65,16 +65,17 @@ public class daus {
         joc();
     }
 
-
     public static void joc(){
         boolean theEnd= false;
         banner();
         while (!theEnd){
             menu();
             int opcio = preguntaOpcio();
-            if(opcio==3){
+            if(opcio==3) {
                 sortir();
                 theEnd = true;
+            }else if (opcio ==4){
+                partidaDesatesa();
             }else if(opcio == 1 || opcio ==2){
                 executa(opcio);
             }else{
@@ -82,6 +83,83 @@ public class daus {
             }
         }
     }
+
+    public static void partidaDesatesa(){
+        System.out.println("Entra les partides:");
+        Scanner sc = new Scanner(System.in);
+        int numPartides = sc.nextInt();
+
+        int guanyades = 0;
+        int perdudes = 0;
+
+        for (int i = 0; i < numPartides; i++) {
+            if(partidaSenseScanner()==1){
+                guanyades++;
+            }else{
+                perdudes++;
+            }
+        }
+
+        estadistica(guanyades,perdudes);
+
+
+    }
+
+
+    public static void estadistica (int guanyades, int perdudes){
+        System.out.println("La estadística de "+ (guanyades+perdudes) + "partides: ");
+        System.out.println("Partides guanyades: " + (100*guanyades/(guanyades+perdudes)) +"%");
+        System.out.println("Partides perdudes: " + (100*perdudes/(guanyades+perdudes)) +"%");
+        System.out.println();
+    }
+
+
+    public static int  partidaSenseScanner() {
+
+        int resultat = 0;
+
+        int punt = dau() + dau();
+
+        System.out.println(punt);
+
+        boolean end = false;
+
+        if (punt == 7 || punt == 11)
+
+        {
+            System.out.println("Has guanyat");
+            resultat = 1;
+
+        } else if (punt == 2 || punt == 3 || punt == 12) {
+            System.out.println("Has perdut");
+            resultat = 0;
+
+        } else {
+
+            while (!end) {
+                int novaTirada = dau() + dau();
+                System.out.println(novaTirada);
+                if (novaTirada == 7) {
+                    System.out.println("Has perdut!");
+                    end = true;
+                    resultat = 0;
+                } else if (novaTirada == punt) {
+                    System.out.println("Has guanyat!");
+                    end = true;
+                    resultat = 1;
+                } else {
+                    System.out.print("Torna a tirar.");
+                }
+            }
+        }
+
+        return resultat;
+    }
+
+
+
+
+
 
     public static int preguntaOpcio() {
         System.out.println("escriu opció: ");
@@ -112,6 +190,7 @@ public class daus {
 
         System.out.println("1) jugar");
         System.out.println("2) ajuda");
+        System.out.println("4) partida iteractiva");
         System.out.println("3) sortir");
     }
 
@@ -135,7 +214,6 @@ public class daus {
 
     public static void partida() {
 
-
         int punt = tirada();
 
         System.out.println(punt);
@@ -151,6 +229,7 @@ public class daus {
 
         {
             System.out.println("Has perdut");
+
         } else
 
         {
