@@ -105,14 +105,12 @@ public class daus {
 
     }
 
-
     public static void estadistica (int guanyades, int perdudes){
         System.out.println("La estadística de "+ (guanyades+perdudes) + "partides: ");
         System.out.println("Partides guanyades: " + (100*guanyades/(guanyades+perdudes)) +"%");
         System.out.println("Partides perdudes: " + (100*perdudes/(guanyades+perdudes)) +"%");
         System.out.println();
     }
-
 
     public static int  partidaSenseScanner() {
 
@@ -155,11 +153,6 @@ public class daus {
 
         return resultat;
     }
-
-
-
-
-
 
     public static int preguntaOpcio() {
         System.out.println("escriu opció: ");
