@@ -1,4 +1,5 @@
 package dissenyModular;
+import java.util.Scanner;
 
 /* 4) Als Estats Units és molt popular un joc de daus amb apostes: un jugador llença
 simultàniament dos daus i suma la puntuació obtinguda entre ells, el valor resultant
@@ -16,19 +17,27 @@ llavors es perd i s'acaba la partida.
 
         Exemples de partides:
 
-        7 (és el punt) Es guanya
+        Partida a: 7 (és el punt) Es guanya
 
-        11 (és el punt) Es guanya
+        Partida b: 11 (és el punt) Es guanya
 
-        2 (és el punt) Es perd
+        Partida c: 2 (és el punt) Es perd
 
-        3 (és el punt) Es perd
+        Partida d: 3 (és el punt) Es perd
 
-        12 (és el punt) Es perd
+        Partida e: 12 (és el punt) Es perd
 
-        8 (és el punt), 9, 6, 5, 8 Es guanya
+        Partida d: 8 (és el punt), Es torna a tirar
+                   9    Es torna a tirar
+                   6    Es torna a tirar
+                   5    Es torna a tirar
+                   8    Es guanya!
 
-        8 (és el punt), 9, 6, 5, 7 Es perd
+        Partida c: 8 (és el punt), Es torna a tirar
+                   9 Es torna a tirar
+                   6 Es torna a tirar
+                   5 Es torna a tirar
+                   7 Es perd!
 
 
         -Dissenyar i implementar una aplicació emprant la metodologia de disseny descendent
@@ -50,53 +59,126 @@ llavors es perd i s'acaba la partida.
 */
 
 
-import java.util.Scanner;
-
 public class daus {
 
     public static void main(String[] args) {
+        banner();
+        controlador();
+    }
 
+
+    public static void banner(){
         System.out.println("***********************");
         System.out.println("*******PARTIDA*********");
         System.out.println("***********************");
+    }
 
-        System.out.println("Tira daus!");
-        System.out.print("Press any key to continue...");
-        Scanner sc = new Scanner(System.in);
-        sc.nextLine();
+    public static void menu() {
+
+        System.out.println("1) jugar");
+        System.out.println("2) ajuda");
+        System.out.println("3) sortir");
+    }
 
 
-        int primeraTirada = tirada();
 
-        System.out.println(primeraTirada);
+    public static void controlador() {
+
+        boolean theEnd = false;
+        while (!theEnd) {
+
+            menu();
+
+            System.out.println("escriu opció: ");
+            Scanner sc = new Scanner(System.in);
+            int op = sc.nextInt();
+
+            switch (op) {
+                case 1:
+                    partida();
+                    break;
+                case 2:
+                    ajuda();
+                    break;
+                case 3:
+                    sortir();
+                    theEnd = true;
+                    break;
+                default:
+                    System.out.println("Opció incorrecta:");
+                    controlador();
+            }
+        }
+    }
+
+    public static void ajuda(){
+
+        System.out.println("Regles del joc.\n" + "\n" +
+        "- La puntuació obtinguda en el primer llançament s’anomena punt, que es memoritza.\n" +
+        "- Si el punt és 7 o 11 es guanya i s'acaba la partida.\n" +
+        "- Si el el punt és 2, 3 o 12 es perd i s'acaba la partida.\n" + "\n" +
+        "Pels altres valors del punt es seguix llançant els daus fins que es treu de nou el punt\n" +
+        "obtingut al primer llançament, llavors es guanya i s'acaba la partida, o es treu un 7,\n" +
+        "llavors es perd i s'acaba la partida.");
+
+        }
+
+    public static void sortir(){
+
+
+        System.out.println("bye");
+    }
+
+    public static void partida() {
+
+
+        int punt = tirada();
+
+        System.out.println(punt);
 
         boolean end = false;
 
+        if (punt == 7 || punt == 11)
 
-        while(!end){
-            if (primeraTirada == 7 || primeraTirada == 11) {
-                System.out.println("Guanya");
-                System.out.println("Final");
-                end = true;
-            } else if (primeraTirada == 2 || primeraTirada == 3 || primeraTirada == 12) {
-                System.out.println("Pert");
-                System.out.println("Final");
-                end =true;
-            }else{
+        {
+            System.out.println("Has guanyat");
 
+        } else if (punt == 2 || punt == 3 || punt == 12)
+
+        {
+            System.out.println("Has perdut");
+        } else
+
+        {
+
+            while (!end) {
+                int novaTirada = tirada();
+                System.out.println(novaTirada);
+                if (novaTirada == 7) {
+                    System.out.println("Has perdut!");
+                    end = true;
+                } else if (novaTirada == punt) {
+                    System.out.println("Has guanyat!");
+                    end = true;
+                } else {
+                    System.out.print("Torna a tirar.");
+                }
             }
-
-            MKeyListener orella = new MKeyListener();
         }
 
     }
 
     public static int tirada(){
-        int numero = tiraDau()+tiraDau();
+        System.out.println("Tira daus!");
+        System.out.print("Press return to continue...");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+        int numero = dau()+ dau();
         return numero;
     }
 
-    public static int tiraDau(){
+    public static int dau(){
+
         return (int) (Math.random() * (6 - 1)) + 1;
     }
 

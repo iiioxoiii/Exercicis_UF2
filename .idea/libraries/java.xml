@@ -3,8 +3,8 @@
     <CLASSES />
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/llibreries/jnativehook-master/src/java" />
-      <root url="file://$PROJECT_DIR$/llibreries/jnativehook-master/src/test" />
+      <root url="file://$PROJECT_DIR$/src/jnativehook-master/src/java" />
+      <root url="file://$PROJECT_DIR$/src/jnativehook-master/src/test" />
     </SOURCES>
   </library>
 </component>
