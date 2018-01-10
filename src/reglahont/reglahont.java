@@ -11,7 +11,6 @@ public class reglahont {
 
         generals2017.preguntesBasiques();
         generals2017.calcul();
-
     }
 
 }
@@ -51,20 +50,22 @@ class eleccions {
     public void calculEscons(ArrayList<partit> llista){
 
         // Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
-        ArrayList llistaFiltrada;
-        llistaFiltrada=filtreBarrera();
+        List<partit> arrayFiltrat = filtreBarrera();
+
 
         //!!!No sé per què no pilla que és p pot ser persona??!!!
-        for (Object p : llistaFiltrada){
+        for (partit p : arrayFiltrat){
             System.out.println(p);
         }
 
         //S'ordena l'array filtrat
-        Comparator.new comparadorPartitPerVots();
+        Comparator<partit> c = new comparadorResultats();
+        Collections.sort(arrayFiltrat,c);
 
 
         //1) Posar els vots de cada partit en un array[]
         //arrayVots[0],arrayVots[1],arrayVots[2];
+
 
         int [] arrayVots ={100000, 50000, 75000, 450000};
         int [] esc ={0,0,0,0};
@@ -96,9 +97,6 @@ class eleccions {
         }
         return imax;
     }
-
-
-
 
 
 
@@ -274,13 +272,13 @@ class eleccions {
 
 
 // Desenvolupament del tipus partit
-class partit implements Comparable<partit>{
+class partit implements Comparable<partit> {
 
     private String nom;
     private Integer vots;
 
-    partit(String nom, Integer vots){
-        this.nom= nom;
+    partit(String nom, Integer vots) {
+        this.nom = nom;
         this.vots = vots;
     }
 
@@ -312,38 +310,38 @@ class partit implements Comparable<partit>{
     @Override
     public boolean equals(Object o) {
         boolean r = false;
-        if(o instanceof partit){
+        if (o instanceof partit) {
             partit p = (partit) o;
             r = this.getNom().equals(p.getNom()) && this.getVots().equals(p.getVots());
         }
         return r;
     }
 
-    public int compareTo(partit p){
+    public int compareTo(partit p) {
         int r;
         r = getNom().compareTo(p.getNom());
-        if (r==0){
+        if (r == 0) {
             r = getVots().compareTo(p.getVots());
         }
         return r;
     }
 
-    public int hashCode(){
-        return getNom().hashCode()+getVots().hashCode()*31;
+    public int hashCode() {
+        return getNom().hashCode() + getVots().hashCode() * 31;
     }
 
 }
 
 
-class comparadorPartitPerVots implements Comparator<partit>{
 
-    @Override
-    public int compare(partit p1, partit p2) {
-        int n;
-        n= p1.getVots().compareTo(p2.getVots());
-            if (n==0){
-                n=p1.compareTo(p2);
+class comparadorResultats implements Comparator<partit>{
+
+        public int compare(partit p1, partit p2) {
+            int n;
+            n = p1.getVots().compareTo(p2.getVots());
+            if (n == 0) {
+                n = p1.compareTo(p2);
             }
-        return n;
+            return n;
+        }
     }
-}
