@@ -53,10 +53,11 @@ class eleccions {
         List<partit> llistatFiltrat = filtreBarrera();
 
 
-        //!!!No sé per què no pilla que és p pot ser persona??!!!
-        for (partit p : llistatFiltrat){
-            //System.out.println(p);
+        /**
+         * for (partit p : llistatFiltrat){
+            System.out.println(p);
         }
+         **/
 
         //S'ordena l'array filtrat
         Comparator<partit> c = new comparadorResultats();
@@ -73,8 +74,6 @@ class eleccions {
             a++;
         }
 
-
-        //int [] arrayVots ={100000, 50000, 75000, 450000};
 
         //2) Es crea una array per posar els escons i s'inicialitza a 0
         int [] esc =new int[llistatFiltrat.size()];
@@ -113,8 +112,6 @@ class eleccions {
     }
 
 
-
-
     //Es fa una llista amb els partits a partir de votsPartit i els vots que han passat el tall.
     public static ArrayList<partit> filtreBarrera(){
 
@@ -128,10 +125,12 @@ class eleccions {
         return partitsBarreraSuperada;
     }
 
+
+
     public static boolean superaBarrera(int vots){
         boolean resultat=false;
 
-        if( (100*vots)/cens > barreraElectoral){
+        if( (100*vots)/this.cens > this.barreraElectoral){
             resultat=true;
         }
         return resultat;
