@@ -50,38 +50,52 @@ class eleccions {
     public void calculEscons(ArrayList<partit> llista){
 
         // Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
-        List<partit> arrayFiltrat = filtreBarrera();
+        List<partit> llistatFiltrat = filtreBarrera();
 
 
         //!!!No sé per què no pilla que és p pot ser persona??!!!
-        for (partit p : arrayFiltrat){
-            System.out.println(p);
+        for (partit p : llistatFiltrat){
+            //System.out.println(p);
         }
 
         //S'ordena l'array filtrat
         Comparator<partit> c = new comparadorResultats();
-        Collections.sort(arrayFiltrat,c);
+        Collections.sort(llistatFiltrat,c);
 
 
         //1) Posar els vots de cada partit en un array[]
         //arrayVots[0],arrayVots[1],arrayVots[2];
 
+        int [] arrayVots = new int[llistatFiltrat.size()];
+        int a = 0;
+        for (partit p:llistatFiltrat) {
+            arrayVots[a]=p.getVots();
+            a++;
+        }
 
-        int [] arrayVots ={100000, 50000, 75000, 450000};
-        int [] esc ={0,0,0,0};
+
+        //int [] arrayVots ={100000, 50000, 75000, 450000};
+
+        //2) Es crea una array per posar els escons i s'inicialitza a 0
+        int [] esc =new int[llistatFiltrat.size()];
+        for (int i = 0; i < esc.length; i++) {
+            esc[i]=0;
+        }
 
 
-        for(int i=0; i<150; i++) {
-            int as = escons(arrayVots, esc, 4);
+        for(int i=0; i<getRepresentants(); i++) {
+            int as = escons(arrayVots, esc, llistatFiltrat.size());
             esc[as]=esc[as]+1;
         }
 
-        for(int i=0; i< esc.length; i++){
-            System.out.println(esc[i]);
+        a=0;
+        for (partit p : llistatFiltrat) {
+            System.out.print(p+"--->");
+            System.out.println(esc[a]);
+            a++;
         }
-    }
 
-        //return llistaEscons;
+    }
 
 
     int escons( int vots[], int esc[], int p) {
