@@ -42,29 +42,22 @@ class eleccions {
     }
 
     public void calcul(){
-        calculEscons(llistat);
+        calculEscons(this.llistat);
     }
 
 
 
     public void calculEscons(ArrayList<partit> llista){
 
-        // Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
+        //1) Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
         List<partit> llistatFiltrat = filtreBarrera();
 
-
-        /**
-         * for (partit p : llistatFiltrat){
-            System.out.println(p);
-        }
-         **/
-
-        //S'ordena l'array filtrat
+        //2) S'ordena l'array filtrat
         Comparator<partit> c = new comparadorResultats();
         Collections.sort(llistatFiltrat,c);
 
 
-        //1) Posar els vots de cada partit en un array[]
+        //3) Posar els vots de cada partit en un array[]
         //arrayVots[0],arrayVots[1],arrayVots[2];
 
         int [] arrayVots = new int[llistatFiltrat.size()];
@@ -75,18 +68,21 @@ class eleccions {
         }
 
 
-        //2) Es crea una array per posar els escons i s'inicialitza a 0
+        //4) Es crea una array per posar els escons i s'inicialitza a 0
+        //esc[0],esc[1],esc[2], ...
         int [] esc =new int[llistatFiltrat.size()];
         for (int i = 0; i < esc.length; i++) {
             esc[i]=0;
         }
 
-
+        //5) Es realitza l'assignació d'escons a l'array esc[]
         for(int i=0; i<getRepresentants(); i++) {
             int as = escons(arrayVots, esc, llistatFiltrat.size());
             esc[as]=esc[as]+1;
         }
 
+        //6) Es pinta el resultat:
+        // Es pinta un ArrayList amb els partits i al costat l'array cutre amb els escons.
         a=0;
         for (partit p : llistatFiltrat) {
             System.out.print(p+"--->");
@@ -112,7 +108,6 @@ class eleccions {
     }
 
 
-    //Es fa una llista amb els partits a partir de votsPartit i els vots que han passat el tall.
     public static ArrayList<partit> filtreBarrera(){
 
         ArrayList <partit> partitsBarreraSuperada = new ArrayList<partit>();
@@ -125,12 +120,10 @@ class eleccions {
         return partitsBarreraSuperada;
     }
 
-
-
     public static boolean superaBarrera(int vots){
         boolean resultat=false;
 
-        if( (100*vots)/this.cens > this.barreraElectoral){
+        if( (100*vots)/ cens > barreraElectoral){
             resultat=true;
         }
         return resultat;
@@ -218,8 +211,6 @@ class eleccions {
         return valors;
     }
 
-
-
     public ArrayList<partit> getLlistat() {
         return this.llistat;
     }
@@ -227,8 +218,6 @@ class eleccions {
     public void setLlistat(ArrayList<partit> llistat) {
         eleccions.llistat = llistat;
     }
-
-
 
     public void setVotsBlanc(int votsBlanc) {
         eleccions.votsBlanc = votsBlanc;
