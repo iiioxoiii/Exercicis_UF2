@@ -150,12 +150,11 @@ class eleccions {
     public static boolean superaBarrera(int vots){
         boolean resultat=false;
 
-        if( (100*vots)/ cens > barreraElectoral){
+        if( (100*vots)/ totalVots() > barreraElectoral){
             resultat=true;
         }
         return resultat;
     }
-
 
     public void mostraPartitsTallSuperat(){
         for (partit p: llistat) {
@@ -170,7 +169,7 @@ class eleccions {
         System.out.println("Vots nuls: " + votsNuls);
     }
 
-    public int totalVots() {
+    public static int totalVots() {
         Integer subtotal = 0;
 
         //Sumem el total de vots de totes les formacions
