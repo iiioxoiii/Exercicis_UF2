@@ -3,6 +3,23 @@ package reglahont;
 import java.util.*;
 
 
+
+/**
+ * El programa s'estructura en uns pocs objectes:
+ *
+ *
+ * partit: un objecte que conté el nom i el número de vots.
+ * eleccions : es un objecte amb que conté els atributs generals de les eleccions i dos blocs generals.
+ *            -> preguntes: bloc amb funcions d'entrada de dades i assignació de valors al objecte eleccions
+ *            -> cálcul: càlcul de les eleccions i resultats derivats.
+ *
+ * **/
+
+
+
+
+
+
 public class reglahont {
 
     public static void main(String[] args) {
@@ -42,12 +59,18 @@ class eleccions {
     }
 
     public void calcul(){
-        calculEscons(this.llistat);
+        calculEscons();
     }
 
 
 
-    public void calculEscons(ArrayList<partit> llista){
+
+
+
+
+
+
+    public void calculEscons(){
 
         //1) Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
         List<partit> llistatFiltrat = filtreBarrera();
@@ -75,7 +98,8 @@ class eleccions {
             esc[i]=0;
         }
 
-        //5) Es realitza l'assignació d'escons a l'array esc[]
+        //5) Es realitza l'assignació d'escons. Cada esco d'un total de getRepresentats va a parar al partit en qüestió o
+        //a la posició del array esc[]
         for(int i=0; i<getRepresentants(); i++) {
             int as = escons(arrayVots, esc, llistatFiltrat.size());
             esc[as]=esc[as]+1;
@@ -92,7 +116,7 @@ class eleccions {
 
     }
 
-
+    //Funcio d'assignació d'escons.
     int escons( int vots[], int esc[], int p) {
 
         int imax=0;
@@ -108,6 +132,8 @@ class eleccions {
     }
 
 
+    //Funció que avalua la llista de partits amb els seus vots i retorna un arraylist amb els partits que han passat el
+    //tall
     public static ArrayList<partit> filtreBarrera(){
 
         ArrayList <partit> partitsBarreraSuperada = new ArrayList<partit>();
@@ -120,6 +146,7 @@ class eleccions {
         return partitsBarreraSuperada;
     }
 
+    //Funció que retorna true o false depenent dels vots i la barrera Electoral
     public static boolean superaBarrera(int vots){
         boolean resultat=false;
 
@@ -128,6 +155,7 @@ class eleccions {
         }
         return resultat;
     }
+
 
     public void mostraPartitsTallSuperat(){
         for (partit p: llistat) {
