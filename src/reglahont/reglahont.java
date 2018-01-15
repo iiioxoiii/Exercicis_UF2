@@ -5,11 +5,27 @@ import java.util.*;
 
 
 /**
- * El programa s'estructura en uns pocs objectes:
+ *
+ * Simulador sobre la llei d'Hondt en unes hipotètiques eleccions electorals.
+ *
+ * Característiques a complir (en un hipotètic país):
+ *
+ * 1) Entra per teclat el nom dels partits , el nombre de vots obtinguts i el tamany en nombre d'escons del parlament.
+ * 2) Sel·lecciona aquells partits que tenen dret a obtenir representació al parlament.
+ * 3) Assigna el nombre d'escons segons l'esmentada llei d'Hondt en cada partit.
+ * 4) Permet fer algun canvi en el nombre de vots d'un partit i visualitza tot seguit els canvis produïts en
+ * l'assignació d'escons.
+ * 5) Donats uns partits decidir si permet o no formar equip de govern (per formar equip de govern es necessita la meitat d'escons + 1).
  *
  *
- * partit: un objecte que conté el nom i el número de vots.
- * eleccions : es un objecte amb que conté els atributs generals de les eleccions i dos blocs generals.
+ *
+ *
+ * La simulació es fa amb el disseny de dos tipus: partir i eleccions.
+ *
+ * objecte partit: objecte amb les característiques del partit: el nom i el número de vots.
+ *
+ * objecte eleccions : un objecte que conté els atributs generals de les eleccions (num partits, vots en blanc,
+ * vots nuls, etc) i amb les quals es generen dades derivades
  *            -> preguntes: bloc amb funcions d'entrada de dades i assignació de valors al objecte eleccions
  *            -> cálcul: càlcul de les eleccions i resultats derivats.
  *
@@ -28,6 +44,10 @@ public class reglahont {
 
         generals2017.preguntesBasiques();
         generals2017.calcul();
+        generals2017.canviVotsPartit();
+        generals2017.calcul();
+        generals2017.calculGovern();
+
     }
 
 }
@@ -45,6 +65,8 @@ class eleccions {
 
     private static ArrayList<partit> llistat= new ArrayList<partit>();
 
+    private static ArrayList<grup> parlament =  new ArrayList<grup>();
+
 
     public void preguntesBasiques(){
 
@@ -57,6 +79,60 @@ class eleccions {
         preguntaVotsPartits();
 
     }
+
+
+    public void canviVotsPartit(){
+
+        System.out.println("Entra el nom del partit que vols canviar els vots:");
+        Scanner sc = new Scanner(System.in);
+        String nomPartit = sc.next();
+        for (partit p:llistat){
+            if(p.getNom().equals(nomPartit)){
+                System.out.println("quantitat:");
+                int vots = entraValors();
+                p.setVots(vots);
+            }else{
+                System.out.println("No s'ha trobat cap partit amb aquest nom");
+            }
+
+        }
+
+    }
+
+
+
+    public void calculGovern(){
+
+        System.out.println("Indica els partits per veure si poden formar govern.");
+        System.out.println("Entra els noms dels partits separats per espai:");
+
+        int esconsGovern = (representants/2) +1;
+        int sumaEscons = 0;
+
+        Scanner sc = new Scanner(System.in);
+        sc.useDelimiter(" ");
+        while(sc.hasNext()){
+            String nomEntrada = sc.next();
+            for(grup g: parlament){
+                if(g.getNom().equals(nomEntrada)){
+                    sumaEscons=sumaEscons+g.getEscons();
+                }
+            }
+        }
+
+        if(sumaEscons<esconsGovern){
+            System.out.println("No sumen. No poden formar govern");
+            System.out.println("Es necessiten" + esconsGovern + "i la suma es de " + sumaEscons);
+        }else {
+            System.out.println("Sí.Poden formar govern. Sumen "+ sumaEscons);
+        }
+
+    }
+
+
+
+
+
 
     public void calcul(){
         calculEscons();
@@ -109,6 +185,9 @@ class eleccions {
         // Es pinta un ArrayList amb els partits i al costat l'array cutre amb els escons.
         a=0;
         for (partit p : llistatFiltrat) {
+            grup entrada = new grup();
+            entrada.setNom(p.getNom());
+            entrada.setEscons(esc[a]);
             System.out.print(p+"--->");
             System.out.println(esc[a]);
             a++;
@@ -297,6 +376,35 @@ class eleccions {
     }
 
 }
+
+
+class grup {
+
+    private String nom;
+    private int escons;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getEscons() {
+        return escons;
+    }
+
+    public void setEscons(int escons) {
+        this.escons = escons;
+    }
+
+}
+
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ class guerranaval {
 
 
 
+
 class partida{
 
     taulell a= new taulell();
@@ -24,9 +25,14 @@ class partida{
 
 
 
+
+
+
+
+
 class taulell{
 
-    private Map <Character, String> taulell;
+    private Map <casilla, element>;
     private int n;
 
 
@@ -39,8 +45,6 @@ class taulell{
 
         ArrayList[][] table = new ArrayList[this.n][this.n];
 
-
-
         table[0][0] = new ArrayList(); // add another ArrayList object to [0,0]
         table[0][0].add(); // add object to that ArrayList
 
@@ -52,16 +56,24 @@ class taulell{
 }
 
 
+enum element{
+    NAVE,MAR,
+}
+
+
+
+
+
 class nau{
 
-    private int mida;
     private casilla origen;
     private orientacio o;
+    private casilla [] mida;
 
-    public nau(int mida, casilla origen, orientacio xy) {
-        this.mida = mida;
+    public nau(int mida, casilla origen, orientacio o, casilla [] mida) {
         this.origen = origen;
-        this.xy = xy;
+        this.o = o;
+        this.mida=mida;
     }
 
 
@@ -103,7 +115,7 @@ class casilla {
     private String nom;
     private coordenada;
 
-    private 
+    private
 
     public String getX() {
         return x;
@@ -121,6 +133,9 @@ class casilla {
         this.y = y;
     }
 }
+
+
+
 
 class coordenada{
 
