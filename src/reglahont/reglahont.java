@@ -31,7 +31,7 @@ package reglahont;
  * >objecte eleccions : un objecte amb tots els atributs de les eleccions (num partits, vots en blanc,
  * vots nuls, etc) i métodes per fer els càlculs de les eleccions.
  *
- * **/
+ ***/
 
 
 public class reglahont {
