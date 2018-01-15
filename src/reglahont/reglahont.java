@@ -34,8 +34,6 @@ import java.util.*;
 
 
 
-
-
 public class reglahont {
 
     public static void main(String[] args) {
