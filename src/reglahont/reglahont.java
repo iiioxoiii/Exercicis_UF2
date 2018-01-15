@@ -1,8 +1,7 @@
 package reglahont;
 
 import java.util.*;
-
-
+import java.util.Scanner;
 
 /**
  *
@@ -30,7 +29,6 @@ import java.util.*;
  *            -> cálcul: càlcul de les eleccions i resultats derivats.
  *
  * **/
-
 
 
 
@@ -83,9 +81,11 @@ class eleccions {
 
         System.out.println("Entra el nom del partit que vols canviar els vots:");
         Scanner sc = new Scanner(System.in);
-        String nomPartit = sc.next();
+
+        String nom = sc.nextLine();
+
         for (partit p:llistat){
-            if(p.getNom().equals(nomPartit)){
+            if(p.getNom().equals(nom)){
                 System.out.println("quantitat:");
                 int vots = entraValors();
                 p.setVots(vots);

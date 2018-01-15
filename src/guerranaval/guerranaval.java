@@ -1,4 +1,5 @@
-package guerranaval;
+/** package guerranaval;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +23,6 @@ class partida{
     taulell b= new taulell();
 
 }
-
-
-
-
-
 
 
 
@@ -155,3 +151,6 @@ class coordenada{
         this.x = x;
     }
 }
+
+
+ **/
