@@ -1,7 +1,6 @@
 package reglahont;
 
 import java.util.*;
-import java.util.Scanner;
 
 /**
  *
@@ -59,8 +58,8 @@ class eleccions {
     private static int representants= 0 ;
     private static int barreraElectoral = 0;
 
-    private static ArrayList<partit> llistat= new ArrayList<partit>();
 
+    private static ArrayList<partit> llistat= new ArrayList<partit>();
     private static ArrayList<grup> parlament =  new ArrayList<grup>();
 
 
@@ -77,6 +76,12 @@ class eleccions {
     }
 
 
+
+
+
+
+
+
     public void canviVotsPartit(){
 
         System.out.println("Entra el nom del partit que vols canviar els vots:");
@@ -86,11 +91,11 @@ class eleccions {
 
         for (partit p:llistat){
             if(p.getNom().equals(nom)){
-                System.out.println("quantitat:");
+                System.out.println("Nova quantitat de vots:");
                 int vots = entraValors();
                 p.setVots(vots);
             }else{
-                //System.out.println("No s'ha trobat cap partit amb aquest nom");
+                System.out.println("No s'ha trobat cap partit amb aquest nom");
             }
 
         }
@@ -99,26 +104,34 @@ class eleccions {
 
 
 
-    public void calculGovern(){
+    public void calculGovern() {
 
-        System.out.println("Indica els partits per veure si poden formar govern.");
-        System.out.println("Entra els noms dels partits separats per espai:");
+        System.out.println("Formacio govern::");
+        System.out.println("Noms dels partits (separats per espais):");
 
-        int esconsGovern = (representants/2) +1;
+        int esconsGovern = (representants / 2) + 1;
         int sumaEscons = 0;
 
         Scanner sc = new Scanner(System.in);
 
         String partits = sc.nextLine();
-        String [] partitsVector = partits.split(" ");
+        String[] partitsVector = partits.split(" ");
 
-        for(int i=0; i < partitsVector.length; i++){
-            sumaEscons= sumaEscons+retornaEscons(partitsVector[i]);
+
+        for (int i = 0; i < partitsVector.length; i++) {
+            for (grup p : parlament) {
+
+                if (partitsVector[i].equals(p.getNom())){
+                    //System.out.println("partitsVector: " + partitsVector[i]);
+                    //System.out.println("p.getnom: " + p.getNom() + p.getEscons());
+                    sumaEscons = sumaEscons + retornaEscons(partitsVector[i]);
+                }
+            }
         }
 
         if(sumaEscons<esconsGovern){
             System.out.println("No sumen. No poden formar govern");
-            System.out.println("Es necessiten" + esconsGovern + "i la suma es de " + sumaEscons);
+            System.out.println("Es necessiten " + esconsGovern + " i la suma es de " + sumaEscons);
         }else {
             System.out.println("Sí.Poden formar govern. Sumen "+ sumaEscons);
         }
@@ -154,6 +167,7 @@ class eleccions {
 
     public void calculEscons(){
 
+
         //1) Es filtra la llista per la barreraElectorial i es desa en un altra ArrayList
         List<partit> llistatFiltrat = filtreBarrera();
 
@@ -187,15 +201,22 @@ class eleccions {
             esc[as]=esc[as]+1;
         }
 
-        //6) Es pinta el resultat:
+
+        //6) Es borra el contingut del parlament (si es que ja hi havia una assignació d'escons anterior)
+
+        parlament.clear();
+
+        //7) Es pinta el resultat:
         // Es pinta un ArrayList amb els partits i al costat l'array cutre amb els escons.
         a=0;
         for (partit p : llistatFiltrat) {
-            grup entrada = new grup();
-            entrada.setNom(p.getNom());
-            entrada.setEscons(esc[a]);
+            grup g = new grup();
+            g.setNom(p.getNom());
+            g.setEscons(esc[a]);
             System.out.print(p+"--->");
             System.out.println(esc[a]);
+
+            parlament.add(g);
             a++;
         }
 
@@ -409,6 +430,14 @@ class grup {
 
     public void setEscons(int escons) {
         this.escons = escons;
+    }
+
+    @Override
+    public String toString() {
+        return "grup{" +
+                "nom='" + nom + '\'' +
+                ", escons=" + escons +
+                '}';
     }
 
 }
