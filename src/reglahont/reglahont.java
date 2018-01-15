@@ -82,7 +82,7 @@ class eleccions {
         System.out.println("Entra el nom del partit que vols canviar els vots:");
         Scanner sc = new Scanner(System.in);
 
-        String nom = sc.nextLine();
+        String nom = sc.next();
 
         for (partit p:llistat){
             if(p.getNom().equals(nom)){
@@ -90,7 +90,7 @@ class eleccions {
                 int vots = entraValors();
                 p.setVots(vots);
             }else{
-                System.out.println("No s'ha trobat cap partit amb aquest nom");
+                //System.out.println("No s'ha trobat cap partit amb aquest nom");
             }
 
         }
@@ -108,14 +108,12 @@ class eleccions {
         int sumaEscons = 0;
 
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter(" ");
-        while(sc.hasNext()){
-            String nomEntrada = sc.next();
-            for(grup g: parlament){
-                if(g.getNom().equals(nomEntrada)){
-                    sumaEscons=sumaEscons+g.getEscons();
-                }
-            }
+
+        String partits = sc.nextLine();
+        String [] partitsVector = partits.split(" ");
+
+        for(int i=0; i < partitsVector.length; i++){
+            sumaEscons= sumaEscons+retornaEscons(partitsVector[i]);
         }
 
         if(sumaEscons<esconsGovern){
@@ -129,15 +127,25 @@ class eleccions {
 
 
 
-
-
-
     public void calcul(){
         calculEscons();
     }
 
 
 
+
+    public int retornaEscons (String nomPartit){
+
+        int n = 0;
+
+        for(grup g:parlament){
+            if (nomPartit.equals(g.getNom())){
+                n= g.getEscons();
+            }
+        }
+
+        return n;
+    }
 
 
 
@@ -207,6 +215,10 @@ class eleccions {
         }
         return imax;
     }
+
+
+
+
 
 
     //Funció que avalua la llista de partits amb els seus vots i retorna un arraylist amb els partits que han passat el
@@ -303,8 +315,8 @@ class eleccions {
 
             llistat.add(p);
         }
-
-        sc.close();
+        // amb el sc tancat em rebenta per tot arreu
+        //sc.close();
 
     }
 
@@ -314,6 +326,8 @@ class eleccions {
         valors = sc.nextInt();
         return valors;
     }
+
+
 
     public ArrayList<partit> getLlistat() {
         return this.llistat;
