@@ -34,7 +34,7 @@ class nau{
         return o;
     }
 
-    public void orientacio setOrientacio (orientacio o) {
+    public void setOrientacio(orientacio o)  {
         this.o = o;
     }
 }
