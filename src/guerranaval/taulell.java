@@ -1,6 +1,6 @@
 package guerranaval;
 
-
+/**
 class taulell{
 
     private casella [][] taulell;
@@ -17,5 +17,5 @@ class taulell{
         }
     }
 
-
 }
+**/
