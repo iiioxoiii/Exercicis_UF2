@@ -1,6 +1,6 @@
 package guerranaval;
 
-public enum nomCasella {
+public enum ubicacio {
 
     A0("A0",0,0),
     A1("A1",0,1),
@@ -138,7 +138,7 @@ public enum nomCasella {
     private int x;
     private int y;
 
-    private nomCasella(String nomCasella, int x, int y) {
+    private ubicacio(String nomCasella, int x, int y) {
         this.nomCasella = nomCasella;
         this.x = x;
         this.y = y;
@@ -149,11 +149,6 @@ public enum nomCasella {
         return nomCasella;
     }
 
- /**   public int getCoordenada() {
-
-        return ;
-    }
-**/
 
 
 /**

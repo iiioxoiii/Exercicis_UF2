@@ -2,28 +2,19 @@ package guerranaval;
 
 class casella {
 
-    private nomCasella nom;
-    private coordenada xy;
+    private ubicacio u;
+    private estat e;
 
 
-    casella(coordenada xy){
-        this.xy = xy;
+    casella(ubicacio u, estat e){
+        this.u = u;
+        this.e= e;
     }
 
-    public nomCasella getNom() {
-        return this.nom;
+
+    public casella getCasella(){
+
     }
 
-    public void setNom(nomCasella nom) {
-        this.nom = nom;
-    }
-
-    public coordenada getCoordenada(){
-        return this.xy;
-    }
-
-    public void setCoordenada(coordenada xy) {
-        this.xy=xy;
-    }
 }
 

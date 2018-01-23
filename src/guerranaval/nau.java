@@ -1,10 +1,9 @@
 package guerranaval;
 
-class nau{
+class nau {
 
     private casella origen;
     private orientacio o;
-
     private int mida;
 
     public nau(int mida, casella origen, orientacio o) {
@@ -34,7 +33,14 @@ class nau{
         return o;
     }
 
-    public void setOrientacio(orientacio o)  {
+    public void setOrientacio(orientacio o) {
         this.o = o;
     }
+
+    public String toString() {
+        String s;
+        s = "[" + this.origen + " orientació:" + this.o + " mida:" + mida + "]";
+        return s;
+    }
+
 }

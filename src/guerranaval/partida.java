@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class partida {
 
     private int midaTaulells;
+    private int scoreJugadorA;
+    private int scoreJugadorB;
+
 
 
 
@@ -24,8 +27,6 @@ public class partida {
 
 
     }
-
-
 
 
 
