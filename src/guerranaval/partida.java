@@ -1,8 +1,8 @@
 package guerranaval;
 
-import java.util.Scanner;
-
 public class partida {
+
+    /**
 
     private int midaTaulells;
     private int scoreJugadorA;
@@ -54,4 +54,6 @@ public class partida {
         this.midaTaulells = midaTaulell;
     }
 
+
+     **/
 }

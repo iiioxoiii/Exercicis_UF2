@@ -120,61 +120,29 @@ public enum ubicacio {
     J7("J7",9,7),
     J8("J8",9,8),
     J9("J9",9,9),
-    J10("J10",9,10),
-
-    K0("K0",10,0),
-    K1("K1",10,1),
-    K2("K2",10,2),
-    K3("K3",10,3),
-    K4("K4",10,4),
-    K5("K5",10,5),
-    K6("K6",10,6),
-    K7("K7",10,7),
-    K8("K8",10,8),
-    K9("K9",10,9),
-    K10("K10",10,10);
+    J10("J10",9,10);
 
     private String nomCasella;
     private int x;
     private int y;
 
-    private ubicacio(String nomCasella, int x, int y) {
+    ubicacio(String nomCasella, int x, int y) {
         this.nomCasella = nomCasella;
         this.x = x;
         this.y = y;
     }
 
-
     public String getNomCasella() {
-        return nomCasella;
+        return this.nomCasella;
     }
 
+    public int getX(){
+        return this.x;
+    }
 
-
-/**
- * public enum Equipo
- {
- BARÇA("FC Barcelona",1), REAL_MADRID("Real Madrid",2),
- SEVILLA("Sevilla FC",4), VILLAREAL("Villareal",7);
-
- private String nombreClub;
- private int puestoLiga;
-
- private Equipo (String nombreClub, int puestoLiga){
- this.nombreClub = nombreClub;
- this.puestoLiga = puestoLiga;
- }
-
- public String getNombreClub() {
- return nombreClub;
- }
-
- public int getPuestoLiga() {
- return puestoLiga;
- }
-
- }**/
-
+    public int getY(){
+        return this.y;
+    }
 
 }
 

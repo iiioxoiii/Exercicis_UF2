@@ -6,15 +6,25 @@ class casella {
     private estat e;
 
 
-    casella(ubicacio u, estat e){
+    casella(ubicacio u, estat e) {
         this.u = u;
-        this.e= e;
+        this.e = e;
     }
 
-
-    public casella getCasella(){
-
+    public ubicacio getUbicacio() {
+        return u;
     }
 
+    public void setUbicacio(ubicacio u) {
+        this.u = u;
+    }
+
+    public estat getEstat() {
+        return e;
+    }
+
+    public void setEstat(estat e) {
+        this.e = e;
+    }
 }
 
