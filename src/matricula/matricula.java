@@ -22,11 +22,11 @@ import java.util.Scanner;
 public class matricula {
 
 
-    static List<matricula.estudiant> llista = new ArrayList<matricula.estudiant>();
+    static List<estudiant> llista = new ArrayList<>();
 
 
     public static void main(String[] args) {
-        matricula.matricula inici = new matricula.matricula();
+        matricula inici = new matricula();
         inici.menu();
     }
 
@@ -69,7 +69,7 @@ public class matricula {
         System.out.println("Entra el DNI:");
         String dni = sc.next();
 
-        for (matricula.estudiant e:llista) {
+        for ( estudiant e:llista) {
             if(e.getDni().equals(dni)){
                 llista.remove(e);
             }
@@ -79,18 +79,18 @@ public class matricula {
 
 
     public static void ordenaPerDNI(){
-        matricula.ComparatorEstudiantPerDNI cc = new matricula.ComparatorEstudiantPerDNI();
+        ComparatorEstudiantPerDNI cc = new ComparatorEstudiantPerDNI();
         Collections.sort(llista,cc);
-        for (matricula.estudiant e: llista) {
+        for (estudiant e: llista) {
             System.out.println(e.toString());
         }
     }
 
 
     public static void ordenaPerEdat(){
-        matricula.ComparatorEstudiantPerEdat cc= new matricula.ComparatorEstudiantPerEdat();
+        ComparatorEstudiantPerEdat cc= new ComparatorEstudiantPerEdat();
         Collections.sort(llista,cc);
-        for (matricula.estudiant e: llista) {
+        for (estudiant e: llista) {
             System.out.println(e.toString());
         }
     }
@@ -112,10 +112,10 @@ public class matricula {
         String telefon = sc.nextLine();
 
         //String dni, String nom, String adreca, String naixement, String telefon
-        matricula.estudiant estudiant = null;
+        estudiant estudiant = null;
 
         try {
-            matricula.estudiant e = new matricula.estudiant(dni,nom,adreca,naixement,telefon);
+            estudiant e = new estudiant(dni,nom,adreca,naixement,telefon);
             llista.add(e);
         }catch (Exception e){
             e.printStackTrace();

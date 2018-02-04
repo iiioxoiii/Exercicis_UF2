@@ -1,9 +1,11 @@
 package peatge;
 
 /*3. Gestió de peatge. Mitjançant un petit programa ens han demanat que portem la gestió
-d'un peatge. El peatge està compost per 4 cues diferents per on poden passar els cotxes,
-es tracta de portar el control numèric d'aquestes cues. Un cotxe quan arriba a un peatge
-escull per defecte la cua que va menys carregada, en cas d'empat escull en ordre incremental
+d'un peatge.
+
+El peatge està compost per 4 cues diferents per on poden passar els cotxes, es tracta de
+portar el control numèric d'aquestes cues. Un cotxe quan arriba a un peatge escull per
+defecte la cua que va menys carregada, en cas d'empat escull en ordre incremental
 de la primera a la quarta. El valor màxim d'una cua és 5.
 
 El programa principal, situat a Peatge.java, tindrà un menú que permet:
@@ -23,7 +25,7 @@ Pista: vigilar amb els màxims i mínims.
 public class peatge {
 
     public static void main(String[] args) {
-        peatge.peatge inici = new peatge.peatge();
+        peatge inici = new peatge();
         inici.go();
     }
 

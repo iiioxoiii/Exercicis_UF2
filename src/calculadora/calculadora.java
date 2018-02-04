@@ -19,7 +19,7 @@ public class calculadora {
 
 
     public static void main(String[] args) {
-        calculadora.calculadora inici = new calculadora.calculadora();
+        calculadora inici = new calculadora();
         inici.menu();
     }
 
@@ -52,7 +52,6 @@ public class calculadora {
             }
         }
     }
-
 
     private static int preguntaOpcio() {
         System.out.println("Opcio:");
