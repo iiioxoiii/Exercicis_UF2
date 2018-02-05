@@ -9,6 +9,7 @@ package submari;
 * - Escriu els comentaris javadoc de tots els mètodes, descrivint la seva funcionalitat i
 * el significat dels seus arguments i resultats.
 * - Modifica el codi de manera que quan no s'encerti el submarí es doni una pista d'on està situat.
+*
 * La pista s'ha de donar abans de moure el submarí:
 *
 * Si el tret no destrueix el submarí  però  cau en algun dels punts situats just a l'entorn de la
@@ -127,16 +128,29 @@ public class submari {
     private static boolean escoltarSonar(int[] ps, int[] pc) {
         // Apliquem pitàgores entre els dos punts (submarí i tret) per saber a la distància que estan
         double dis = Math.sqrt((ps[0] - pc[0]) * (ps[0] - pc[0]) + (ps[1] - pc[1]) * (ps[1] - pc[1]));
+
+
         if (dis == 0) {
             System.out.print("Submarí enfonsat!\n");
             return true;
         } else if (dis < 1.42) { // 1.42 és la hipotenusa d'un triangle rectangle de catets = 1, vol dir que el tret està al costat del submarí
             System.out.print("Submarí aprop!\n");
             return false;
+
+
+            //Modificació de programa d'avís de submarí en coordenada x;
+
+        } else if (ps[0]-1 == pc[0]-1 || ps[0]+1 == pc[0]+1){
+            System.out.println("La coordenada x del submari es: "+ ps[0]+"!");
+            return false;
+
         } else {
             System.out.print("Aigua!\n");
+
             return false;
         }
+
+
     }
 
     /**
