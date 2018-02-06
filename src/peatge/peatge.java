@@ -1,5 +1,3 @@
-package peatge;
-
 /*3. Gestió de peatge. Mitjançant un petit programa ens han demanat que portem la gestió
 d'un peatge.
 
@@ -22,14 +20,162 @@ si una cua està plena i preguntar si una cua està buida.
 Pista: vigilar amb els màxims i mínims.
 */
 
+package peatge;
+import java.util.Scanner;
+
 public class peatge {
 
-    public static void main(String[] args) {
-        peatge inici = new peatge();
-        inici.go();
+
+    public static cua [] peatge;
+
+
+
+    public static void main(String [] args ){
+        peatge peatge = new peatge();
+
+        peatge.muntaCues();
+        peatge.menu();
+
     }
 
-    public static void go(){
+
+
+    public void menu(){
+
+        boolean sortir = false;
+
+        while(sortir != true){
+            System.out.println("MENU");
+            System.out.println("1) Veure cues");
+            System.out.println("2) Entrada cotxe");
+            System.out.println("3) Sortida cotxe");
+            System.out.println("4) Sortir");
+
+            Scanner sc = new Scanner(System.in);
+            int opcio = sc.nextInt();
+
+            if(opcio == 1){
+
+                ocupacioCues();
+
+            }else if (opcio == 2){
+
+                entraCotxe();
+
+            }else if (opcio == 3){
+
+                surtCotxe();
+
+            }else if (opcio == 4){
+                sortir = true;
+
+            }else{
+                System.out.println("error opcio!");
+            }
+        }
 
     }
+
+
+
+    public static void surtCotxe(){
+
+        boolean sortit = false;
+
+        for (cua cc:peatge) {
+            if((cc.minOcupacio <= cc.ocupacio)
+                    && (cc.equals(cuaMesOcupada()))
+                    && (sortit == false)){
+
+                cc.treuCotxe();
+                sortit = true;
+
+                System.out.println("Cotxe fora!");
+            }
+        }
+
+
+
+    }
+
+
+    public static cua cuaMesOcupada(){
+        cua cuaMax = peatge[0];
+
+        for (cua cc : peatge){
+            if (cc.getOcupacio() >= cuaMax.getOcupacio()){
+                cuaMax = cc;
+            }
+        }
+
+        return cuaMax;
+    }
+
+
+
+
+
+
+    public static cua cuaMenysOcupada(){
+        cua cuaMinima = peatge[0];
+
+        for (cua cc : peatge){
+            if (cc.getOcupacio() <= cuaMinima.getOcupacio()){
+                cuaMinima = cc;
+            }
+        }
+
+        return cuaMinima;
+    }
+
+
+
+
+    public static void entraCotxe(){
+
+        boolean afegit = false;
+
+        for (cua cc:peatge) {
+            if((cc.cuaDisponible() == !afegit)
+                    && (cc.equals(cuaMenysOcupada()))){
+
+                cc.afegeixCotxe();
+                afegit = true;
+
+                System.out.println("Cotxe afegit!");
+            }
+        }
+
+    }
+
+
+
+    public static void ocupacioCues(){
+        for (cua cc: peatge) {
+            System.out.println(cc.toString());
+        }
+    }
+
+
+
+
+    public void muntaCues(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Quants carrils vols habilitar? ");
+        int carrils = sc.nextInt();
+        peatge = new cua[carrils];
+
+        for (int i = 0; i < carrils ; i++) {
+            System.out.println("Cua num " + i);
+            String nom = String.valueOf(i);
+            System.out.println("Màxim de cotxes a la cua?");
+            int max = sc.nextInt();
+
+            cua c = new cua(nom,max);
+            peatge[i]=c;
+        }
+    }
+
 }
+
+
