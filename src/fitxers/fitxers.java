@@ -1,6 +1,7 @@
 package fitxers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,12 +56,38 @@ public class fitxers {
         //biggestFile();
         //cercadorFitxers("src/fitxers/directoriDeTreball");
         //inventari("src/fitxers/directoriDeTreball");
-        esborraPerNumero("src/fitxers/directoriDeTreball");
-        // crea("/ruta");
+        //esborraPerNumero("src/fitxers/directoriDeTreball");
+        crea("src/fitxers/directoriDeTreball");
         // explorador();
 
     }
 
+    public static void crea(String ruta){
+
+        File d = new File(ruta);
+        File [] dir = d.listFiles();
+
+        //Es recorre la llista de fitxers
+        for (File ff: dir) {
+
+            // Si es un fitxer es crea un directori
+            if(ff.isFile()){
+                ff.mkdir();
+            }
+
+            //Si es un directori es crea un fitxer.
+            if(ff.isDirectory()){
+                File fff = new File (d, ff.getName()+ ".txt");
+                try {
+                    fff.createNewFile();
+                }catch (IOException e){
+                    System.out.println("Error en creacio");
+                }
+            }
+        }
+
+
+    }
 
     public static void esborraPerNumero(String ruta){
 
