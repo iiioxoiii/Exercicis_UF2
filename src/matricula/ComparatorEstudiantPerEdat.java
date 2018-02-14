@@ -8,8 +8,8 @@ public class ComparatorEstudiantPerEdat implements Comparator<estudiant> {
         int r;
 
         r = a.getNaixement().compareTo(b.getNaixement());
-        if( r== 0){
-            r= a.compareTo(b);
+        if( r == 0){
+            r = a.compareTo(b);
         }
 
         return r;

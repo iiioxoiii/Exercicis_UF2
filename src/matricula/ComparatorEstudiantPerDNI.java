@@ -8,8 +8,8 @@ public class ComparatorEstudiantPerDNI implements Comparator<estudiant> {
         int r;
 
         r = a.getDni().compareTo(b.getDni());
-        if( r== 0){
-            r= a.compareTo(b);
+        if( r == 0){
+            r = a.compareTo(b);
         }
 
         return r;

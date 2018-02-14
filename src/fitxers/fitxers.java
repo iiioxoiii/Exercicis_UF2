@@ -41,7 +41,6 @@ public class fitxers {
     public static void main(String[] args) {
         fitxers inici = new fitxers();
         inici.go();
-
     }
 
 
@@ -64,6 +63,7 @@ public class fitxers {
 
 
     public static void explorador(){
+        programaExplorador();
 
     }
 
@@ -88,8 +88,6 @@ public class fitxers {
         }
     }
 
-
-    }
 
 
     public static void ordenaPerModificacio(String ruta) {
@@ -118,14 +116,22 @@ public class fitxers {
      */
     public static void ordenaPerAlfabetic(String ruta){
         File ff = new File(ruta);
-        File[] llista = ff.listFiles();
+        File[] files = ff.listFiles();
 
-        //Ordenacio data de directoris i fitxers
+        //Es fa servir un comparator
+        comparadorFileNom[] pairs = new comparadorFileNom[files.length];
+        for (int i = 0; i < files.length; i++)
+            pairs[i] = new comparadorFileNom(files[i]);
 
+        //Ordenacio invertida
+        //Arrays.sort(pairs, Collections.reverseOrder());
 
-        //Es pinta tot i sense distingir
-        for (File f :llista) {
-             double a = f.lastModified();
+        //Ordenacio per orde alfabetic
+        Arrays.sort(pairs);
+
+        //Es pinta la llista ordenada
+        for (comparadorFileNom f : pairs) {
+            System.out.println(f.getNom());
         }
     }
 
