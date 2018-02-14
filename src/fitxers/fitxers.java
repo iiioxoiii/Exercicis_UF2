@@ -2,6 +2,7 @@ package fitxers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,10 +58,115 @@ public class fitxers {
         //cercadorFitxers("src/fitxers/directoriDeTreball");
         //inventari("src/fitxers/directoriDeTreball");
         //esborraPerNumero("src/fitxers/directoriDeTreball");
-        crea("src/fitxers/directoriDeTreball");
-        // explorador();
+        //crea("src/fitxers/directoriDeTreball");
+        explorador();
+    }
+
+
+    public static void explorador(){
 
     }
+
+    public static void ordenaPerMida(String ruta){
+        File ff = new File(ruta);
+        File[] files = ff.listFiles();
+
+        //Es fa servir un comparator
+        comparadorFilePerMida[] pairs = new comparadorFilePerMida[files.length];
+        for (int i = 0; i < files.length; i++)
+            pairs[i] = new comparadorFilePerMida(files[i]);
+
+        //Ordenacio de mes a menys
+        //Arrays.sort(pairs, Collections.reverseOrder());
+
+        //Ordenacio de menys a mes
+        Arrays.sort(pairs);
+
+        //Es pinta la llista ordenada
+        for (comparadorFilePerMida f : pairs) {
+            System.out.println(f.getNom());
+        }
+    }
+
+
+    }
+
+
+    public static void ordenaPerModificacio(String ruta) {
+        File ff = new File(ruta);
+        File[] files = ff.listFiles();
+
+        //Es fa servir un comparator
+        comparadorFilePerData[] pairs = new comparadorFilePerData[files.length];
+        for (int i = 0; i < files.length; i++)
+            pairs[i] = new comparadorFilePerData(files[i]);
+
+        //Ordenacio de mes a menys
+        //Arrays.sort(pairs, Collections.reverseOrder());
+
+        //Ordenacio de menys a mes
+        Arrays.sort(pairs);
+
+        //Es pinta la llista ordenada
+        for (comparadorFilePerData f : pairs) {
+            System.out.println(f.getNom());
+        }
+    }
+
+    /**Pinta el contingut d'un directori per ordre alfabetic
+     * @param ruta Una cadeda amb la ruta del directori
+     */
+    public static void ordenaPerAlfabetic(String ruta){
+        File ff = new File(ruta);
+        File[] llista = ff.listFiles();
+
+        //Ordenacio data de directoris i fitxers
+
+
+        //Es pinta tot i sense distingir
+        for (File f :llista) {
+             double a = f.lastModified();
+        }
+    }
+
+
+    public static void programaExplorador(){
+        boolean sortir = false;
+        while(!sortir){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Entra el directori <ruta absoluta>:");
+            String ruta = sc.nextLine();
+            System.out.println("Ordena per ordre alfabetic <1>");
+            System.out.println("Ordena per modificació <2>");
+            System.out.println("Ordena per mida (max a min) <3>");
+            System.out.println("Sortir <4>");
+            String ordre = sc.nextLine();
+
+            switch (ordre){
+                case "1":
+                    ordenaPerAlfabetic(ruta);
+                    break;
+                case "2":
+                    ordenaPerModificacio(ruta);
+                    break;
+                case "3":
+                    ordenaPerMida(ruta);
+                    break;
+                case "4":
+                    sortir =true;
+                    break;
+                default:
+                    System.out.println("Opció no vàlida");
+            }
+        }
+
+    }
+
+
+
+
+
+
 
     public static void crea(String ruta){
 
@@ -72,7 +178,16 @@ public class fitxers {
 
             // Si es un fitxer es crea un directori
             if(ff.isFile()){
-                ff.mkdir();
+
+                //Es suprimeix l'extensio en el nom
+                String subcadena = ".txt";
+                String nom = ff.getName();
+                nom = nom.replace(subcadena, "");
+
+                //Es crea una instancia File i es crea el directori
+                //(ruta pare + barra + nom assigat);
+                File dd = new File(ff.getParent()+"/"+nom);
+                dd.mkdir();
             }
 
             //Si es un directori es crea un fitxer.
@@ -81,12 +196,10 @@ public class fitxers {
                 try {
                     fff.createNewFile();
                 }catch (IOException e){
-                    System.out.println("Error en creacio");
+                    System.out.println("Error en creació");
                 }
             }
         }
-
-
     }
 
     public static void esborraPerNumero(String ruta){
