@@ -1,8 +1,6 @@
 package fitxersInOut;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +40,10 @@ public class fitxersInOut {
          * contingut del fitxer. Suggerència: usar expressions regulars.
          * **/
 
-        //apareixCadenaNumVegades();
+        String entrada = "src/fitxersInOut/INFO.txt";
+        String cadenaCaracters = "programa";
+
+        apareixCadenaNumVegades(entrada, cadenaCaracters);
 
         /** 5. Modifica el programa anterior per a que, un cop comptades les
          * ocurrències de la cadena, el programa escrigui en un altre fitxer el
@@ -50,17 +51,21 @@ public class fitxersInOut {
          * l'original més el sufix .count
          * **/
 
+
+
+
+
     }
 
-    public static void apareixCadenaNumVegades(){
+    public static void apareixCadenaNumVegades(String entrada, String cadenaCaracters){
 
         int n = 0;
 
         try {
-            FileReader f = new FileReader("src/fitxersInOut/INFO.txt");
+            FileReader f = new FileReader(entrada);
             BufferedReader b = new BufferedReader(f);
 
-            Pattern p = Pattern.compile("Escriu");
+            Pattern p = Pattern.compile(cadenaCaracters);
 
             // Es crea una cadena per posar el b.readline perquè sembla
             // que si es retorna null peta l'expressió regular amb matcher
@@ -81,6 +86,38 @@ public class fitxersInOut {
         }
 
         System.out.println(n);
+
+        escriuVegadesAFile(n,entrada);
+    }
+
+
+
+    public static void escriuVegadesAFile(int n, String entrada){
+
+        File fEntrada = new File(entrada);
+
+        //S'extreu la ruta, el nom i s'afegeix el prefix
+        String ruta  = fEntrada.getParent();
+        String f = fEntrada.getName();
+        String barra = "/";
+        f = ruta.concat(barra).concat(f).concat(".count");
+
+
+
+        try{
+            //S'escriu una linia en un fitxer nou
+            String liniaFinal = "Les coincidencies son ".concat(String.valueOf(n));
+            PrintWriter writer = new PrintWriter(f, "UTF-8");
+            writer.println(liniaFinal);
+
+            //IMPORTAT! Sense tancar no escriu.
+            writer.close();
+            
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
 
