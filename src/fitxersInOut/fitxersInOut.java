@@ -42,7 +42,7 @@ public class fitxersInOut {
          * contingut del fitxer. Suggerència: usar expressions regulars.
          * **/
 
-        System.out.println(apareixCadenaNumVegades());
+        //apareixCadenaNumVegades();
 
         /** 5. Modifica el programa anterior per a que, un cop comptades les
          * ocurrències de la cadena, el programa escrigui en un altre fitxer el
@@ -52,7 +52,7 @@ public class fitxersInOut {
 
     }
 
-    public static int apareixCadenaNumVegades(){
+    public static void apareixCadenaNumVegades(){
 
         int n = 0;
 
@@ -60,12 +60,20 @@ public class fitxersInOut {
             FileReader f = new FileReader("src/fitxersInOut/INFO.txt");
             BufferedReader b = new BufferedReader(f);
 
-            while(b.readLine()!=null) {
+            Pattern p = Pattern.compile("Escriu");
 
-                String linia = b.readLine();
+            // Es crea una cadena per posar el b.readline perquè sembla
+            // que si es retorna null peta l'expressió regular amb matcher
+            // https://www.tutorialspoint.com/java/io/bufferedreader_readline.htm
 
-                linia.matches("");
+            String linia = null;
+
+            while((linia = b.readLine())!=null) {
+
+                Matcher m = p.matcher(linia);
+                if (m.find()){
                     n++;
+                }
             }
 
         }catch (IOException e){
@@ -73,7 +81,6 @@ public class fitxersInOut {
         }
 
         System.out.println(n);
-        return n;
     }
 
 
