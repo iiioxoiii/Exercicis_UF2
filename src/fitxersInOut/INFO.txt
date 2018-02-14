@@ -1,0 +1,8 @@
+
+
+Cal descomentar els metode que es vulgui fer servir.
+L'arxiu INFO.txt és l'arxiu referència per fer el tractament de les expressions regulars
+
+"Una polla xica, pica, pellarica, camatorta i becarica va tenir sis polls xics, pics, pellarics,
+camatorts i becarics.Si la polla no hagués sigut xica, pica, pellarica, camatorta i becarica,
+els sis polls no haguessin sigut xics, pics, pellarics, camatorts i becarics"
