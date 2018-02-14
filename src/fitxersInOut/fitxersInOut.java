@@ -41,7 +41,7 @@ public class fitxersInOut {
          * **/
 
         String entrada = "src/fitxersInOut/INFO.txt";
-        String cadenaCaracters = "programa";
+        String cadenaCaracters = "polla";
 
         apareixCadenaNumVegades(entrada, cadenaCaracters);
 
@@ -112,7 +112,7 @@ public class fitxersInOut {
 
             //IMPORTAT! Sense tancar no escriu.
             writer.close();
-            
+
         }catch (IOException e){
             e.printStackTrace();
         }
