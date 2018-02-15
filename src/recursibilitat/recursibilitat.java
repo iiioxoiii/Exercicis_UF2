@@ -14,8 +14,6 @@ public class recursibilitat {
         System.out.println(mostraNaturals(10));
 
         //System.out.println(divisioPerRestes(10,2));
-
-
     }
 
 
