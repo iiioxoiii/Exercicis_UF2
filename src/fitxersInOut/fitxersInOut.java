@@ -56,7 +56,7 @@ public class fitxersInOut {
          * el nom original més un 2.
          * */
 
-        copiaAmbDos("src/fitxersInOut/INFO.txt");
+        copiaAmbDos("src/fitxersInOut/ascii");
 
         /** 8. Prova amb un exemple les classes BufferedInputStream i BufferedOutputStream.
 
