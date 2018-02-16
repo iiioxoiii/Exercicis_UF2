@@ -1,4 +1,4 @@
-package examenUF2Prova_2;
+package examenUF2Prova_2.pintaTaulell;
 
 import java.util.Scanner;
 
