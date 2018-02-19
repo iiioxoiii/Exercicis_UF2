@@ -1,6 +1,7 @@
 package fitxersInOut;
 
 import java.io.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,9 +57,11 @@ public class fitxersInOut {
          * el nom original més un 2.
          * */
 
-        copiaAmbDos("src/fitxersInOut/ascii");
+        //copiaAmbDos("src/fitxersInOut/ascii");
 
-        /** 8. Prova amb un exemple les classes BufferedInputStream i BufferedOutputStream.
+        /** 8. Prova amb un exemple les classes BufferedInputStream i BufferedOutputStream.**/
+
+        //exempleAmbBuffered("src/fitxersInOut/INFO.txt");
 
         /** 9. Escriure un programa que fagi una còpia d'un fitxer. Ho ha de fer llegint-l
          * byte a byte, de manera que ha de copiar qualsevol tipus de fitxer (imatges,
@@ -66,14 +69,22 @@ public class fitxersInOut {
          * i BufferedOutputStream.
          **/
 
-        /** 10. Realitza un programa anomenat Analitzador.java que donat un fitxer de text plà calculi el número de paraules que hi ha al text. El resultat s'escriurà per pantalla. El resultat també s'escriurà a un fitxer de text plà anomenat paraules.txt, on cada execució del programa afegirà una línia amb l'últim resultat obtingut, amb el format següent:
-        * nom_fitxer número_paraules
-        * Per exemple:
-        * C:\Users\dam\prova.txt 12
-        * C:\Users\pepito\curriculum.txt 297
-        * C:\Users\pepito\abecedari.txt 10
-        **/
+        //copiaUnFitxer("src/fitxersInOut/INFO.txt", "src/fitxersInOut/INFO2.txt");
 
+
+        /** 10. Realitza un programa anomenat Analitzador.java que donat un fitxer de text
+         * plà calculi el número de paraules que hi ha al text. El resultat s'escriurà per pantalla.
+         * El resultat també s'escriurà a un fitxer de text plà anomenat paraules.txt, on cada execució
+         * del programa afegirà una línia amb l'últim resultat obtingut, amb el format següent:
+         *
+         * nom_fitxer número_paraules
+         * Per exemple:
+         * C:\Users\dam\prova.txt 12
+         * C:\Users\pepito\curriculum.txt 297
+         * C:\Users\pepito\abecedari.txt 10
+         * **/
+
+        //analitzador("src/fitxersInOut/INFO.txt");
 
         /** 11. Donat un fitxer binari que conté enters (int), llegeix el seu contingut i
          * calcula la mitjana de tots els enters. Després escriu la mitjana al final del
@@ -81,18 +92,180 @@ public class fitxersInOut {
          **/
 
 
+        creaBinari("src/fitxersInOut/enters.bin");
+        mitjanaEnters("src/fitxersInOut/enters.bin");
+
+
         /** 12. Donat un fitxer binari que conté enters (int), ordena directament sobre el
          * fitxer (usant la classe RandomAccesFile) tots els seus valors, de menor a major.
          **/
+    }
 
 
 
+    public static void mitjanaEnters(String fitxer){
+        File ff = new File (fitxer);
+        long mida = ff.length();
+        long total = 0;
 
+            try {
+                BufferedReader bf = new BufferedReader(new FileReader(ff));
+                for (int i = 0; i < mida ; i++) {
+                    int n = bf.read();
+                    System.out.println(n);
+                    total = n + total;
+                }
+
+                //System.out.println("Suma del total: "+ total);
+                total = total / (mida);
+                System.out.println("Mitjana: "+ total);
+
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
 
 
+    public static void creaBinari(String fitxer){
+
+        //Quantitat de números enters que es desaran al fitxer
+        final int q = 10;
+
+        try {
+            FileWriter fw = new FileWriter(fitxer);
+            for (int i = 0; i < q; i++) {
+                int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                fw.write(randomNum);
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void mitjana(String fitxer){
+
+    }
+
+
+    public static void analitzador(String fitxer) {
+        int num = 0;
+
+        String fNumParaules = "src/fitxersInOut/número_paraules.txt";
+
+        try {
+
+            File entrada = new File (fitxer);
+            File sortida = new File (fNumParaules);
+
+            BufferedReader fReader = new BufferedReader(new FileReader(entrada));
+            BufferedWriter fWriter = new BufferedWriter(new FileWriter(sortida,true));
+
+            while (fReader.ready()) {
+                String linia = fReader.readLine();
+                num = num + countWords(linia);
+            }
+
+            fReader.close();
+            fWriter.write(fitxer+" " + num);
+            fWriter.write('\n');
+            fWriter.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int countWords(String text) {
+
+        int result = 0;
+
+        //Pattern p = Pattern.compile("[A-Za-z]");
+        Pattern p = Pattern.compile("\\w*");
+        Matcher matcher = p.matcher(text);
+        while (matcher.find()){
+            result++;
+        }
+        //int result = text.split("\\w+").length ;
+
+        return result;
+    }
+
+
+    public static void copiaUnFitxer(String origen, String desti) {
+
+        File fo = new File(origen);
+        File fd = new File(desti);
+
+        BufferedOutputStream outputStreamData = null;
+        try {
+            BufferedInputStream inputStreamData = new BufferedInputStream(new FileInputStream(fo));
+            outputStreamData = new BufferedOutputStream(new FileOutputStream(fd));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStreamData.read(buffer)) > 0) {
+                outputStreamData.write(buffer, 0, length);
+            }
+
+            inputStreamData.close();
+            outputStreamData.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
+            //El IDE no pilla tancament al finally
+            //inputStreamData.close();
+            //outputStreamData.close();
+        }
+
+    }
+
+
+
+    public static void exempleAmbBuffered(String fitxer){
+
+        File fileOrigen = new File (fitxer);
+
+        String ruta  = fileOrigen.getParent();
+        String nomFileDesti = fileOrigen.getName().concat(".2");
+        String barra = "/";
+        nomFileDesti = ruta.concat(barra).concat(nomFileDesti);
+
+        File fileDesti = new File(nomFileDesti);
+
+
+        try {
+
+            fileDesti.createNewFile();
+
+            BufferedReader a = new BufferedReader(new FileReader(fitxer));
+            BufferedWriter b = new BufferedWriter(new FileWriter(fileDesti));
+
+
+            while (a.ready()){
+                String linia = a.readLine();
+                b.write(linia);
+            }
+            a.close();
+            b.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 
     public static void copiaAmbDos(String fitxer){
 
@@ -112,9 +285,8 @@ public class fitxersInOut {
 
             Reader a = new FileReader(fitxer);
             Writer b = new FileWriter(fileDesti);
-
             while (a.read() != -1 ){
-                b.write((byte)a.read());
+                b.write((char)a.read());
 
                 //b.write(a.read());
             }
@@ -125,12 +297,6 @@ public class fitxersInOut {
         }
 
     }
-
-
-
-
-
-
 
 
 
