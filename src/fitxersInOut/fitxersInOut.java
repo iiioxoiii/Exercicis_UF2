@@ -1,6 +1,7 @@
 package fitxersInOut;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,15 +93,73 @@ public class fitxersInOut {
          **/
 
 
-        creaBinari("src/fitxersInOut/enters.bin");
-        mitjanaEnters("src/fitxersInOut/enters.bin");
+        //creaBinari("src/fitxersInOut/enters.bin");
+        //mitjanaEnters("src/fitxersInOut/enters.bin");
 
 
         /** 12. Donat un fitxer binari que conté enters (int), ordena directament sobre el
          * fitxer (usant la classe RandomAccesFile) tots els seus valors, de menor a major.
          **/
+
+        //creaBinari("src/fitxersInOut/enters.bin");
+        mostraBinari("src/fitxersInOut/enters.bin");
+        //ordenaBinari("src/fitxersInOut/enters.bin");
     }
 
+
+
+    public static void mostraBinari(String fitxer){
+
+        File ff = new File (fitxer);
+
+        try {
+            FileInputStream fff = new FileInputStream(ff);
+
+            long mida = ff.length();
+            byte[] bytes = new byte[(int) mida];
+
+            for (int i = 0; i < mida; i++) {
+                bytes[i] = (byte) fff.read();
+                System.out.println(bytes[i]);
+            }
+
+
+            fff.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public static void ordenaBinari(String fitxer){
+        File ff = new File (fitxer);
+
+        try {
+            FileInputStream fff = new FileInputStream(ff);
+
+            long mida = ff.length();
+            byte[] bytes = new byte[(int)mida];
+
+            for (int i = 0; i < mida ; i++) {
+                bytes[i]=(byte)fff.read();
+            }
+
+            fff.close();
+            FileOutputStream ffo = new FileOutputStream(fitxer);
+
+            Arrays.sort(bytes);
+
+            for (int i = 0; i < bytes.length; i++) {
+                ffo.write(bytes[i]);
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 
 
     public static void mitjanaEnters(String fitxer){
@@ -267,14 +326,17 @@ public class fitxersInOut {
 
     }
 
+    /**
+     * Amb File, Reader i Writer
+     * @param fitxer
+     */
     public static void copiaAmbDos(String fitxer){
 
         File fileOrigen = new File (fitxer);
 
         String ruta  = fileOrigen.getParent();
         String nomFileDesti = fileOrigen.getName().concat(".2");
-        String barra = "/";
-        nomFileDesti = ruta.concat(barra).concat(nomFileDesti);
+        nomFileDesti = ruta + fileOrigen.separatorChar + nomFileDesti ;
 
         File fileDesti = new File(nomFileDesti);
 
@@ -283,23 +345,47 @@ public class fitxersInOut {
 
             fileDesti.createNewFile();
 
-            Reader a = new FileReader(fitxer);
-            Writer b = new FileWriter(fileDesti);
-            while (a.read() != -1 ){
-                b.write((char)a.read());
+            //Reader a = new FileReader(fitxer);
+            //Writer b = new FileWriter(fileDesti);
 
-                //b.write(a.read());
+            /**while (a.read() != -1) {
+             try {
+             char c = (char) a.read();
+             b.write(c);
+
+             } catch (IOException e) {
+             e.printStackTrace();
+             }
+             }**/
+
+            FileInputStream aa = new FileInputStream(fileOrigen);
+            FileOutputStream bb = new FileOutputStream(fileDesti);
+
+            int cc;
+            while ((cc = aa.read()) != -1) {
+                try {
+                    bb.write(cc);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            b.close();
+
+            bb.close();
+            aa.close();
 
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
 
-
+    /**
+     * Amb FileReades i BufferedReader.
+     * Comptabilitza el numero de vegades que apareix una cadena de caràcters i
+     * escriu el resultat cridant el mètode escriuVegadesAFile.
+     * @param entrada
+     * @param cadenaCaracters
+     */
     public static void apareixCadenaNumVegades(String entrada, String cadenaCaracters){
 
         int n = 0;
@@ -334,7 +420,12 @@ public class fitxersInOut {
     }
 
 
-
+    /**
+     * Amb File i PrintWritter
+     * Crea un arxiu amb informació passada pels paràmetres
+     * @param n Un enter
+     * @param entrada nom en el qual es crea l'arxiu final
+     */
     public static void escriuVegadesAFile(int n, String entrada){
 
         File fEntrada = new File(entrada);
@@ -364,6 +455,12 @@ public class fitxersInOut {
     }
 
 
+    /**
+     * Amb FileReader i BufferedReader
+     * Es llegeix línia a línia i s'analitza si conté un patro Pattern.
+     *
+     * @return true si el patró apareix de 1 o més vegades.
+     */
     public static boolean apareixCadena(){
 
         boolean apareix =false;
@@ -394,8 +491,12 @@ public class fitxersInOut {
         return apareix;
     }
 
-    public static void pintaArxiuMajuscula(){
 
+    /**
+     * Amb FileReader i BufferedReader
+     * Es llegeix línia a línia i es passa a majuscula
+     */
+    public static void pintaArxiuMajuscula(){
 
         try {
             FileReader f = new FileReader("src/fitxersInOut/INFO.txt");
@@ -417,8 +518,10 @@ public class fitxersInOut {
     }
 
 
-
-
+    /**
+     * Amb FileReader i BufferedReader
+     * Es llegeix línia a línia.
+     */
     public static void pintaArxiuPantalla(){
 
         try {
